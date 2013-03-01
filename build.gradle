@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply from: 'jogl2Dependenceis.gradle'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+mainClassName = 'sample.GLTriangle'
+

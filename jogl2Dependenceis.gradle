@@ -1,0 +1,19 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+def osFamily = {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) 'windows'
+    else if (Os.isFamily(Os.FAMILY_UNIX)) 'linux'
+    else if (Os.isFamily(Os.MAX)) 'mac'
+}()
+def osArch = {
+    if (Os.isArch('x86')) 'i586'
+    else if (Os.isArch('amd64')) 'amd64'
+}()
+def joglclassifier = osFamily + '-' + osArch
+dependencies {
+    compile 'org.jogamp.gluegen:gluegen-rt:2.0-rc11'
+    runtime 'org.jogamp.gluegen:gluegen-rt:2.0-rc11:natives-' + joglclassifier
+    compile 'org.jogamp.jogl:jogl-all:2.0-rc11'
+    runtime 'org.jogamp.jogl:jogl-all:2.0-rc11:natives-' + joglclassifier
+}
+
