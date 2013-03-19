@@ -6,6 +6,6 @@
 *.war
 *.ear
 
-#$ Gradle
+## Gradle
 build/
 .gradle
