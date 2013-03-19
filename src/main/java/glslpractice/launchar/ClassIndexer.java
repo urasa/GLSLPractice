@@ -1,4 +1,5 @@
 package glslpractice.launcher;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,14 +21,5 @@ public class ClassIndexer {
         }
 
         return null;
-    }
-    public static void main(String[] args) {
-        try {
-            getIndex(args[1]);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }
