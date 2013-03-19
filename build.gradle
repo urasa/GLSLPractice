@@ -7,5 +7,5 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = 'glslpractice.GLTriangle'
+mainClassName = 'glslpractice.launcher.Launcher'
 
