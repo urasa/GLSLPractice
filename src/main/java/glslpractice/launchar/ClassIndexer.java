@@ -42,7 +42,7 @@ public class ClassIndexer {
             }
             else if (file.isFile()) {
                 if (filename.endsWith(".class") && !filename.contains("$")) {
-                    classes.add(packageName + "." + filename.replaceAll(".class$", ""));
+                    classes.add(packageName + "." + filename.replaceAll("\\.class$", ""));
                 }
             }
         }
