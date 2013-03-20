@@ -24,7 +24,7 @@ public class ClassIndexer {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         JavaFileManager fm = compiler.getStandardFileManager(null, null, null);
         Set<JavaFileObject.Kind> kinds = EnumSet.of(JavaFileObject.Kind.CLASS);
-        for (JavaFileObject f : fm.list(StandardLocation.CLASS_PATH, packageName, kinds, false)) {
+        for (JavaFileObject f : fm.list(StandardLocation.CLASS_PATH, packageName, kinds, true)) {
             System.out.println(f.getName());
         }
 
