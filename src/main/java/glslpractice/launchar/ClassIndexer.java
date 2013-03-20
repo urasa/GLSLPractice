@@ -6,14 +6,28 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Set;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardLocation;
+import javax.tools.ToolProvider;
 
 /**
  * 指定されたパッケージからクラスの一覧を作成する
  */
 public class ClassIndexer {
     public static List<String> getIndex(String packageName) throws IOException {
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        JavaFileManager fm = compiler.getStandardFileManager(null, null, null);
+        Set<JavaFileObject.Kind> kinds = EnumSet.of(JavaFileObject.Kind.CLASS);
+        for (JavaFileObject f : fm.list(StandardLocation.CLASS_PATH, packageName, kinds, false)) {
+            System.out.println(f.getName());
+        }
+
         // パッケージはリソース中のディレクトリ構造を表しているので
         // クラスファイルはそのディレクトリからリソースとして取得できる
         String classdir = packageName.replace('.', '/');
