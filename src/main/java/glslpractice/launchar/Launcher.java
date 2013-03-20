@@ -13,7 +13,7 @@ public class Launcher {
     public static void main(String[] args) {
         List<String> classNames = null;
         try {
-            classNames = ClassIndexer.getIndex("glslpractice");
+            classNames = ClassIndexer.getIndex("glslpractice", true);
         }
         catch (IOException e) {
             e.printStackTrace();
