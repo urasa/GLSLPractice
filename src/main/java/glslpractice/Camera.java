@@ -31,13 +31,13 @@ public class Camera extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-    private final double dAngle = Math.PI*2/360d;
+    private final double dAngle = Math.PI/360d;
     @Override
     public void mouseDragged(MouseEvent e) {
         Point p = e.getPoint();
         int dx = p.x - prev.x;
         int dy = p.y - prev.y;
-        pitch += dy * dAngle;
+        pitch += -dy * dAngle;
         if (pitch > Math.PI/2d) {
             pitch = Math.PI/2d;
         }
@@ -87,7 +87,6 @@ public class Camera extends MouseAdapter {
     }
     private void updateCenter() {
         center = new Point3d(eye.x+Math.cos(yaw), eye.y+Math.tan(pitch), eye.z+Math.sin(yaw));
-        System.out.println("center updated: " + center);
     }
 
     public class Point3d {
