@@ -3,6 +3,7 @@ package glslpractice;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.media.opengl.glu.GLU;
 
 /**
  * マウス、キーボード入力によるカメラアングルの変更をさばく
@@ -63,6 +64,11 @@ public class Camera extends MouseAdapter {
     public Point3d getUp() {
         return up;
     }
+    public void look(GLU glu) {
+        glu.gluLookAt(eye.x, eye.y, eye.z, 
+                center.x, center.y, center.z,
+                up.x, up.y, up.z);
+    }
     public void setEye(double x, double y, double z) {
         eye = new Point3d(x, y, z);
         calcPitchAndYaw();
@@ -80,7 +86,8 @@ public class Camera extends MouseAdapter {
         yaw = Math.atan(dz/dx);
     }
     private void updateCenter() {
-        center = new Point3d(Math.cos(yaw), Math.tan(pitch), Math.sin(yaw));
+        center = new Point3d(eye.x+Math.cos(yaw), eye.y+Math.tan(pitch), eye.z+Math.sin(yaw));
+        System.out.println("center updated: " + center);
     }
 
     public class Point3d {
@@ -92,6 +99,10 @@ public class Camera extends MouseAdapter {
         }
         public Point3d () {
             this(0d, 0d, 0d);
+        }
+        @Override
+        public String toString() {
+            return "(" + x + ", " + y + ", " + z + ")";
         }
     }
 }

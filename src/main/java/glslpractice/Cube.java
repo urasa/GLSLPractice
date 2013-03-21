@@ -17,11 +17,14 @@ public class Cube extends JFrame implements GLEventListener {
     private GLU  glu  = new GLU();
     private int fps = 30;
     private FPSAnimator animator;
+    private Camera camera = new Camera(0d, 30d, -45d, 0d, 0d, 0d);
 
 	public Cube() {
 		GLJPanel panel = new GLJPanel();
 		GLEventListener listener = this;
 		panel.addGLEventListener(listener);
+        panel.addMouseListener(camera);
+        panel.addMouseMotionListener(camera);
 
 		getContentPane().add(panel);
 
@@ -35,8 +38,6 @@ public class Cube extends JFrame implements GLEventListener {
 	}
     private int program = 0;
 
-    private int count = 0;
-    private double loopSec = 5d;
     public void display(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
@@ -44,11 +45,8 @@ public class Cube extends JFrame implements GLEventListener {
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        count = (count >= loopSec * fps)? 0: ++count;
-        double th = Math.PI*2 * count/(double)fps/loopSec;
-        float eyeX = (float)Math.sin(th);
-        float eyeZ = (float)Math.cos(th);
-        glu.gluLookAt(30f*eyeX, 30f, 30f*eyeZ, 0f, 0f, 0f, 0f, 1f, 0f);
+        // glu.gluLookAt(30f*eyeX, 30f, 30f*eyeZ, 0f, 0f, 0f, 0f, 1f, 0f);
+        camera.look(glu);
 
         gl.glUseProgram(program);
         drawFloor(gl);
