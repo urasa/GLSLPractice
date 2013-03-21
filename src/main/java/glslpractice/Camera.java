@@ -4,11 +4,15 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.media.opengl.glu.GLU;
+import java.util.EnumMap;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 
 /**
  * マウス、キーボード入力によるカメラアングルの変更をさばく
  */
-public class Camera extends MouseAdapter {
+public class Camera extends MouseAdapter implements KeyListener {
     private Point prev = new Point();
     private Point3d eye = new Point3d();
     private Point3d up = new Point3d(0d, 1d, 0d);
@@ -87,6 +91,48 @@ public class Camera extends MouseAdapter {
     }
     private void updateCenter() {
         center = new Point3d(eye.x+Math.cos(yaw), eye.y+Math.tan(pitch), eye.z+Math.sin(yaw));
+    }
+
+    private enum Key {
+        A, D, S, W;
+        static Key get(int k) {
+            switch (k) {
+            case KeyEvent.VK_A: return Key.A;
+            case KeyEvent.VK_D: return Key.D;
+            case KeyEvent.VK_S: return Key.S;
+            case KeyEvent.VK_W: return Key.W;
+            default: return null;
+            }
+        }
+    }
+    public void keyPressed(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+        switch (e.getKeyChar()) {
+        case 'a': shift(-1d, 0d); break;
+        case 'd': shift( 1d, 0d); break;
+        case 's': shift( 0d,-1d); break;
+        case 'w': shift( 0d, 1d); break;
+        default: System.out.println("key? imputed: " + e.getKeyChar());
+        }
+    }
+    public void shift(double d, double w) {
+        // front or back
+        double dx = center.x - eye.x;
+        double dy = center.y - eye.y;
+        double dz = center.z - eye.z;
+        double r = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        double dex = w * dx / r;
+        double dey = w * dy / r;
+        double dez = w * dz / r;
+        // right or left
+        double r2 = Math.sqrt(dx*dx+dz*dz);
+        double cx = -dz / r2;
+        double cz =  dx / r2;
+        dex += d * cx;
+        dez += d * cz;
+        eye = new Point3d(eye.x + dex, eye.y + dey, eye.z + dez);
+        center = new Point3d(center.x + dex, center.y + dey, center.z + dez);
     }
 
     public class Point3d {

@@ -25,6 +25,7 @@ public class Cube extends JFrame implements GLEventListener {
 		panel.addGLEventListener(listener);
         panel.addMouseListener(camera);
         panel.addMouseMotionListener(camera);
+        this.addKeyListener(camera);
 
 		getContentPane().add(panel);
 
