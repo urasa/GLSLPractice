@@ -122,20 +122,4 @@ public class Camera extends MouseAdapter implements KeyListener {
         eye = new Point3d(eye.x + dex, eye.y + dey, eye.z + dez);
         center = new Point3d(center.x + dex, center.y + dey, center.z + dez);
     }
-
-    public class Point3d {
-        final double x, y, z;
-        public Point3d(double x, double y, double z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-        public Point3d () {
-            this(0d, 0d, 0d);
-        }
-        @Override
-        public String toString() {
-            return "(" + x + ", " + y + ", " + z + ")";
-        }
-    }
 }
