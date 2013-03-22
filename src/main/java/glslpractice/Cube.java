@@ -84,7 +84,7 @@ public class Cube extends JFrame implements GLEventListener {
         GL2 gl = drawable.getGL().getGL2();
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(30f, (float)width/(float)height, 1f, 100f);
+        glu.gluPerspective(30f, (float)width/(float)height, 1f, 10000f);
     }
 
 	public static void main(String[] args) {
