@@ -93,18 +93,6 @@ public class Camera extends MouseAdapter implements KeyListener {
         center = new Point3d(eye.x+Math.cos(yaw), eye.y+Math.tan(pitch), eye.z+Math.sin(yaw));
     }
 
-    private enum Key {
-        A, D, S, W;
-        static Key get(int k) {
-            switch (k) {
-            case KeyEvent.VK_A: return Key.A;
-            case KeyEvent.VK_D: return Key.D;
-            case KeyEvent.VK_S: return Key.S;
-            case KeyEvent.VK_W: return Key.W;
-            default: return null;
-            }
-        }
-    }
     public void keyPressed(KeyEvent e) {}
     public void keyReleased(KeyEvent e) {}
     public void keyTyped(KeyEvent e) {
