@@ -6,7 +6,7 @@ configurations.add('jogl')
 def osFamily = {
     if (Os.isFamily(Os.FAMILY_WINDOWS)) 'windows'
     else if (Os.isFamily(Os.FAMILY_UNIX)) 'linux'
-    else if (Os.isFamily(Os.MAX)) 'mac'
+    else if (Os.isFamily(Os.MAC)) 'mac'
 }
 def osArch = {
     if (Os.isArch('x86')) 'i586'
