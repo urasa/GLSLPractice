@@ -25,20 +25,24 @@ public class Launcher {
         List<Class<?>> classes = getMainClasses(classNames);
         System.out.println("select to launch: ");
         for (int i = 0; i < classes.size(); i++) {
-            System.out.println(String.format("%3d: ", i) + classes.get(i).getName());
+            System.out.println(String.format("%3d: ", i)
+                    + classes.get(i).getName());
         }
         System.out.print(": ");
-        Scanner scanner = new Scanner(System.in);
-        int num = scanner.nextInt();
-        if (0 <= num && num < classes.size()) {
-            instantiate(classes.get(num));
-        }
-        else {
-            System.out.println("exit");
-            System.exit(0);
+        try (Scanner scanner = new Scanner(System.in)) {
+            int num = scanner.nextInt();
+            if (0 <= num && num < classes.size()) {
+                instantiate(classes.get(num));
+            }
+            else {
+                System.out.println("exit");
+                System.exit(0);
+            }
         }
     }
-    private static List<Class<?>> getMainClasses(List<String> classNames) {
+
+    private static List<Class<?>> getMainClasses(
+            List<String> classNames) {
         List<Class<?>> classes = new ArrayList<>();
         Class<?> c = null;
         for (String className : classNames) {
@@ -54,9 +58,9 @@ public class Launcher {
         }
         return classes;
     }
+
     /**
-     * mainを持ったクラスかを調べる
-     * TODO mainがオーバーロードされている場合に誤検出について検証・対処
+     * mainを持ったクラスかを調べる TODO mainがオーバーロードされている場合に誤検出について検証・対処
      */
     private static boolean isMainClass(Class<?> c) {
         for (Method method : c.getMethods()) {
@@ -66,6 +70,7 @@ public class Launcher {
         }
         return false;
     }
+
     /**
      * 指定されたクラスをインスタンス化する
      */
@@ -73,7 +78,7 @@ public class Launcher {
         try {
             className.newInstance();
         }
-        catch(InstantiationException | IllegalAccessException  e) {
+        catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
